@@ -346,7 +346,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Import libraries</span>
@@ -381,7 +381,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">student_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -395,7 +395,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -578,7 +578,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># TODO: Calculate number of students</span>
@@ -594,7 +594,7 @@ div#notebook {
 <span class="n">n_failed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="o">.</span><span class="n">passed</span> <span class="o">==</span> <span class="s">&#39;no&#39;</span><span class="p">])</span>
 
 <span class="c"># TODO: Calculate graduation rate</span>
-<span class="n">grad_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span><span class="o">/</span><span class="n">n_students</span>
+<span class="n">grad_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span><span class="o">/</span><span class="n">n_students</span> <span class="o">*</span><span class="mi">100</span>
 
 <span class="c"># Print the results</span>
 <span class="k">print</span> <span class="s">&quot;Total number of students: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
@@ -618,7 +618,7 @@ div#notebook {
 Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
-Graduation rate of the class: 0.67%
+Graduation rate of the class: 67.09%
 </pre>
 </div>
 </div>
@@ -641,7 +641,7 @@ Graduation rate of the class: 0.67%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Extract feature columns</span>
@@ -723,7 +723,7 @@ Feature values:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">preprocess_features</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
@@ -793,7 +793,7 @@ Feature values:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># TODO: Import any additional functionality you may need here</span>
@@ -862,14 +862,27 @@ Testing set has 95 samples.
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong> <br></p>
 <ol>
-<li>Decision forests <br></li>
-<li>Logistic regression <br></li>
+<li>Random Forests <br></li>
+<li>Logistic Regression <br></li>
 <li>Naive Bayes<br></li>
 </ol>
-<p>Decision forests: Applicable to both classification and regression. Its strengths are that they are easy to understand, accurate, and give meaningful results regarding which features are most important. Weaknesses include decision trees' tendency to overfit, though using an ensemble model like random forests reduces this, sensitivity to small changes in data, and that it doesn't have straightforward probabilitstic interpretation. <br> <br></p>
-<p>Logistic Regression: Strengths include that it is robust to noise, can avoid overfitting with regularization, efficient, can be interpreted as a probability. Weaknesses include that it requires data to be linearly separable (unless we do some feature engineering by, say, squaring some of the features), has difficulty with binary features, it still may overfit even with regularization. <br><br></p>
-<p>Naive Bayes: Strengths: less likely to overfit (important for a small data set), requires less training data if features are conditionally independent. Weaknesses include that it assumes features are conditionally independent. It doesn't tell you which features are most important. <br><br></p>
+<p><strong>General Applications:</strong><br>
+Decision forests can be applied to classification and regression problems. It can also be used to find the most important features in a supervised learning problem to be used in other algorithms. It has been successfully applied in face detection, detecting body movements in the Kinect game, internet traffic interception, video classification, voice classification, click stream analysis.<br></p>
+<p>Logistic Regression is for classification problems. It has been used in the medical field. For example, it was used for the Trauma and Injury Severity Score (TRISS) (predicts mortality in injured patients), diabetes and heart disease prediction. It has also been used to predict which party a person will vote for, the probability of system failures in engineering, marketing applications predicting whether a purchase will be made, and prediction of defaults on mortgages. <br></p>
+<p>Naive Bayes classifiers have been used in natural language processing, spam detection, gender classification, document classification, detection of terrain conditions using sensor data in autonomous driving.</p>
+<p><strong>Strengths and Weaknesses:</strong><br>
+Random Forests: Applicable to both classification and regression. Its strengths are that they are easy to understand, accurate, and give meaningful results regarding which features are most important. Weaknesses include decision trees' tendency to overfit, though using an ensemble model like random forests reduces this, sensitivity to small changes in data, and that it doesn't have straightforward probabilitstic interpretation. <br></p>
+<p>Logistic Regression: Strengths include that it is robust to noise, can avoid overfitting with regularization, efficient, can be interpreted as a probability. Weaknesses include that it requires data to be linearly separable (unless we do some feature engineering by, say, squaring some of the features), has difficulty with binary features, it still may overfit even with regularization. <br></p>
+<p>Naive Bayes: Strengths: less likely to overfit (important for a small data set), requires less training data if features are conditionally independent. Weaknesses include that it assumes features are conditionally independent. It doesn't tell you which features are most important. <br></p>
+<p><strong>Relevance to Our Data:</strong><br>
+Random Forests: Our data, after processing, has a lot of binary features, which is a natural fit for random forests. It also can tell us which features are the most important, something that I would want to know if I were on the school board. <br></p>
+<p>Logistic Regression: Prediction is very fast for logistic regression. It will struggle with the binary features, but our data also has a lot of quantitative features as well. It is a very efficient algorithm, which will help with our costs, and we can control overfitting by tuning the regularization parameter.</p>
+<p>Naive Bayes: Our data set is small, and naive Bayes is effective with smaller data sets. It is also a high bias/low variance classifier, again good for small data sets as it avoids overfitting.</p>
 <p>References: <br>
+Machine Learning- Random forests applications, <a href="https://www.youtube.com/watch?v=zFGPjRPwyFw">https://www.youtube.com/watch?v=zFGPjRPwyFw</a><br>
+<a href="https://www.quora.com/What-are-the-interesting-applications-of-classification-algorithms-like-neural-networks-and-random-forests">https://www.quora.com/What-are-the-interesting-applications-of-classification-algorithms-like-neural-networks-and-random-forests</a><br>
+<a href="https://en.wikipedia.org/wiki/Logistic_regression#Fields_and_example_applications">https://en.wikipedia.org/wiki/Logistic_regression#Fields_and_example_applications</a><br>
+<a href="https://www.quora.com/In-what-real-world-applications-is-Naive-Bayes-classifier-used">https://www.quora.com/In-what-real-world-applications-is-Naive-Bayes-classifier-used</a><br>
 <a href="https://azure.microsoft.com/en-us/documentation/articles/machine-learning-algorithm-choice/">https://azure.microsoft.com/en-us/documentation/articles/machine-learning-algorithm-choice/</a><br>
 <a href="https://www.quora.com/Classification-machine-learning-When-should-I-use-a-K-NN-classifier-over-a-Naive-Bayes-classifier">https://www.quora.com/Classification-machine-learning-When-should-I-use-a-K-NN-classifier-over-a-Naive-Bayes-classifier</a><br>
 <a href="http://stackoverflow.com/questions/10317885/decision-tree-vs-naive-bayes-classifier">http://stackoverflow.com/questions/10317885/decision-tree-vs-naive-bayes-classifier</a><br> 
@@ -877,7 +890,8 @@ Testing set has 95 samples.
 <a href="http://stats.stackexchange.com/questions/1292/what-is-the-weak-side-of-decision-trees">http://stats.stackexchange.com/questions/1292/what-is-the-weak-side-of-decision-trees</a><br>
 <a href="https://www.quora.com/What-are-the-advantages-of-different-classification-algorithms">https://www.quora.com/What-are-the-advantages-of-different-classification-algorithms</a><br>
 <a href="http://www.cs.ucr.edu/~eamonn/CE/Bayesian%20Classification%20withInsect_examples.pdf">http://www.cs.ucr.edu/~eamonn/CE/Bayesian%20Classification%20withInsect_examples.pdf</a> <br>
-<a href="http://stackoverflow.com/a/10318673/399741">http://stackoverflow.com/a/10318673/399741</a></p>
+<a href="http://stackoverflow.com/a/10318673/399741">http://stackoverflow.com/a/10318673/399741</a><br>
+<a href="http://blog.echen.me/2011/04/27/choosing-a-machine-learning-classifier/">http://blog.echen.me/2011/04/27/choosing-a-machine-learning-classifier/</a></p>
 
 </div>
 </div>
@@ -902,7 +916,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
@@ -975,7 +989,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># TODO: Import the three supervised learning models from sklearn</span>
@@ -1029,58 +1043,58 @@ Testing set has 95 samples.
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Training a RandomForestClassifier using a training set size of 100. . .
-Trained model in 0.0404 seconds
-Made predictions in 0.0013 seconds.
-F1 score for training set: 0.9921.
+Trained model in 0.0106 seconds
 Made predictions in 0.0014 seconds.
-F1 score for test set: 0.7910.
-Training a RandomForestClassifier using a training set size of 200. . .
-Trained model in 0.0088 seconds
+F1 score for training set: 0.9922.
 Made predictions in 0.0016 seconds.
-F1 score for training set: 1.0000.
-Made predictions in 0.0012 seconds.
-F1 score for test set: 0.7647.
-Training a RandomForestClassifier using a training set size of 300. . .
-Trained model in 0.0111 seconds
+F1 score for test set: 0.7176.
+Training a RandomForestClassifier using a training set size of 200. . .
+Trained model in 0.0110 seconds
 Made predictions in 0.0015 seconds.
-F1 score for training set: 0.9924.
-Made predictions in 0.0009 seconds.
-F1 score for test set: 0.7313.
+F1 score for training set: 0.9961.
+Made predictions in 0.0015 seconds.
+F1 score for test set: 0.7059.
+Training a RandomForestClassifier using a training set size of 300. . .
+Trained model in 0.0112 seconds
+Made predictions in 0.0018 seconds.
+F1 score for training set: 0.9950.
+Made predictions in 0.0015 seconds.
+F1 score for test set: 0.7556.
 Training a LogisticRegression using a training set size of 100. . .
-Trained model in 0.0260 seconds
-Made predictions in 0.0004 seconds.
+Trained model in 0.0012 seconds
+Made predictions in 0.0002 seconds.
 F1 score for training set: 0.8593.
 Made predictions in 0.0002 seconds.
 F1 score for test set: 0.7612.
 Training a LogisticRegression using a training set size of 200. . .
-Trained model in 0.0018 seconds
-Made predictions in 0.0002 seconds.
+Trained model in 0.0024 seconds
+Made predictions in 0.0003 seconds.
 F1 score for training set: 0.8444.
-Made predictions in 0.0001 seconds.
+Made predictions in 0.0002 seconds.
 F1 score for test set: 0.7591.
 Training a LogisticRegression using a training set size of 300. . .
-Trained model in 0.0023 seconds
-Made predictions in 0.0002 seconds.
+Trained model in 0.0030 seconds
+Made predictions in 0.0004 seconds.
 F1 score for training set: 0.8263.
-Made predictions in 0.0001 seconds.
+Made predictions in 0.0002 seconds.
 F1 score for test set: 0.8169.
 Training a GaussianNB using a training set size of 100. . .
-Trained model in 0.0006 seconds
-Made predictions in 0.0003 seconds.
+Trained model in 0.0008 seconds
+Made predictions in 0.0004 seconds.
 F1 score for training set: 0.4096.
-Made predictions in 0.0003 seconds.
+Made predictions in 0.0004 seconds.
 F1 score for test set: 0.2619.
 Training a GaussianNB using a training set size of 200. . .
-Trained model in 0.0009 seconds
-Made predictions in 0.0005 seconds.
+Trained model in 0.0008 seconds
+Made predictions in 0.0004 seconds.
 F1 score for training set: 0.7903.
 Made predictions in 0.0003 seconds.
 F1 score for test set: 0.7481.
 Training a GaussianNB using a training set size of 300. . .
-Trained model in 0.0009 seconds
-Made predictions in 0.0005 seconds.
+Trained model in 0.0008 seconds
+Made predictions in 0.0008 seconds.
 F1 score for training set: 0.7789.
-Made predictions in 0.0003 seconds.
+Made predictions in 0.0005 seconds.
 F1 score for test set: 0.7794.
 </pre>
 </div>
@@ -1118,24 +1132,24 @@ F1 score for test set: 0.7794.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.0404</td>
-<td style="text-align:center">0.0014</td>
-<td style="text-align:center">0.9921</td>
-<td style="text-align:center">0.7910</td>
+<td style="text-align:center">0.0106</td>
+<td style="text-align:center">0.0016</td>
+<td style="text-align:center">0.9922</td>
+<td style="text-align:center">0.7176</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.0088</td>
-<td style="text-align:center">0.0012</td>
-<td style="text-align:center">1.0000</td>
-<td style="text-align:center">0.7647</td>
+<td style="text-align:center">0.0110</td>
+<td style="text-align:center">0.0015</td>
+<td style="text-align:center">0.9961</td>
+<td style="text-align:center">0.7059</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.0111</td>
-<td style="text-align:center">0.0009</td>
-<td style="text-align:center">0.9924</td>
-<td style="text-align:center">0.7313</td>
+<td style="text-align:center">0.0112</td>
+<td style="text-align:center">0.0015</td>
+<td style="text-align:center">0.9950</td>
+<td style="text-align:center">0.7556</td>
 </tr>
 </tbody>
 </table>
@@ -1152,22 +1166,22 @@ F1 score for test set: 0.7794.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.0260</td>
+<td style="text-align:center">0.0012</td>
 <td style="text-align:center">0.0002</td>
 <td style="text-align:center">0.8593</td>
 <td style="text-align:center">0.7612</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.0018</td>
-<td style="text-align:center">0.0001</td>
+<td style="text-align:center">0.0024</td>
+<td style="text-align:center">0.0002</td>
 <td style="text-align:center">0.8444</td>
 <td style="text-align:center">0.7591</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.0023</td>
-<td style="text-align:center">0.0001</td>
+<td style="text-align:center">0.0030</td>
+<td style="text-align:center">0.0002</td>
 <td style="text-align:center">0.8263</td>
 <td style="text-align:center">0.8169</td>
 </tr>
@@ -1186,22 +1200,22 @@ F1 score for test set: 0.7794.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.0006</td>
-<td style="text-align:center">0.0003</td>
+<td style="text-align:center">0.0008</td>
+<td style="text-align:center">0.0004</td>
 <td style="text-align:center">0.4096</td>
 <td style="text-align:center">0.2619</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.0009</td>
+<td style="text-align:center">0.0008</td>
 <td style="text-align:center">0.0003</td>
 <td style="text-align:center">0.7903</td>
 <td style="text-align:center">0.7481</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.0009</td>
-<td style="text-align:center">0.0003</td>
+<td style="text-align:center">0.0008</td>
+<td style="text-align:center">0.0005</td>
 <td style="text-align:center">0.7789</td>
 <td style="text-align:center">0.7794</td>
 </tr>
@@ -1237,8 +1251,23 @@ F1 score for test set: 0.7794.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong><br>
-With random forests, the main positive feature is that its training F1 score is very high, even with a small data set. It's obviously overfitting, but parameter tuning might alleviate that. There is much more 'up side' with random forests than the other two algorithms on parameter tuning, as the other two algorithms' training F1's isn't much greater than their test F1's, and both are not that high. This indicates high bias with the other two algorithms; those algorithms aren't complex enough to handle the data. Also, random forests' test F1 is comparable to that of logistic regression, and is better than gaussian naive Bayes in all but the 300 training set.</p>
-<p>So the alogorithm with the lowest F1 scores (naive Bayes) is fastest, the slowest algorithm has the best F1 scores on the smallest data sets with some upside for improvement. Logistic regression is consistently faster than random forests on prediction, and consistently faster than both random forests and naive Bayes on prediction, and its F1s are higher than that of naive Bayes on even the smallest data set. So the choice on my view comes to random forests and logistic regression. With these two it's a trade-off between the possible up-side regarding F1 scores on the test set (with even a small data set) and speed. I go with the upside on the F1 scores and choose random forests.</p>
+Rankings:<br>
+F1 scores on test sets, taken over all data sets: <br>
+1: logistic regression<br>
+2: naive Bayes<br>
+3: random forests<br></p>
+<p>The differences between them are not great, however.<br></p>
+<p>Speed:<br>
+1: naive bayes <br>
+2: logistic regression <br>
+3: random forests<br></p>
+<p>F1 test performance on smallest data set:<br>
+1: logistic regression<br>
+2: random forests<br>
+3: naive Bayes<br></p>
+<p>Naive Bayes' F1 test performance on the smallest data set is worse than simply saying a person would pass, and is unacceptable.<br></p>
+<p>Total average ranking: logistic regression: 1.33, naive Bayes: 2, random forests: 2.67 <br></p>
+<p>Since training set size, speed, and F1 test performance are all criteria for the best algorithm, assuming each is of equal weight, I would say the best overall algorithm is logistic regression. Naive Bayes did unacceptably bad on the small data set, and random forests was bottom of the list for two of the criteria.</p>
 
 </div>
 </div>
@@ -1259,9 +1288,8 @@ With random forests, the main positive feature is that its training F1 score is 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong><br>
-Decision trees are algorithms that are a lot like the game "20 questions," in which one player, the answerer, has an answer in mind, and the other players, the questioners, may ask up to 20 questions from the answerer, each answered with a "yes" or "no." Through the answers to these questions, the questioners try to narrow down what the answer is and guess it. <br></p>
-<p>Decision trees do the same sort of thing: it wants to find what questions to ask, and in which order, to answer a question. In our case the algorithm is looking for an answer to the question "Will this student graduate?" It does this by going through a sample of students in which we know whether they graduated or not along with other properties (such as gender, which school they attend, parents' level of education, etc). The questions it may ask are taken from these properties of the students. The algorithm tries to find which property (category) splits the students who will graduate from those who won't the best: for example, it might separate boys from girls if this split separates the graduaters from the non-graduaters the best. It then repeats the process for each subcategory (that is, the other properties known; e.g., of the girls it will split them into those with college-graduate parents, those with high-school graduate parents, and those whose parents didn't graduate from high school) until it either reaches a state where all the students who will graduate are in certain sub-categories and those who won't are in the others, or it runs out of categories. To predict whether a student will graduate, ask the same questions in the same order about this student and see which sub-category the student is in. <br></p>
-<p>Random Forests are just a group of decision trees: the data and categories are split up randomly, and a decision tree is created for each. When predicting whether, say, a student will graduate, use all of the trees and take a vote among them. The choice with the most votes is the answer.</p>
+Starting with an example: suppose we know some features of a particular student: her number of absences, time spent socializing, parent's level of education, and so on. We would like to be able to predict whether she'll graduate from high school. We need a <em>model</em>, that is, a mathematical way of relating student features to whether they will graduate: we input the features and get a prediction as output. We can form models by looking a past student data in which we know each student's features and whether or not she graduated. That is, we can <em>fit</em> a model to the data. Logistic regression is one of the several algorithms that can do this. <br></p>
+<p>It starts with a mathematical model that includes each of the input features along weights attached to each of the features. This is then passed into a special <em>logistic function</em> that outputs a 'yes' or 'no' prediction. It then tries to adjust the weights so that the 'predictions' it makes on past students match whether they actually graduated or not the best. It returns to us the model for use in future predictions.</p>
 
 </div>
 </div>
@@ -1292,7 +1320,7 @@ Decision trees are algorithms that are a lot like the game "20 questions," in wh
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># TODO: Import &#39;GridSearchCV&#39; and &#39;make_scorer&#39;</span>
@@ -1300,10 +1328,9 @@ Decision trees are algorithms that are a lot like the game "20 questions," in wh
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">make_scorer</span><span class="p">,</span> <span class="n">f1_score</span>
 
 <span class="c"># TODO: Create the parameters list you wish to tune</span>
-<span class="c">#parameters = {&#39;max_features&#39;:range(1, 31), , &#39;max_depth&#39;:range(2,7), &#39;min_samples_split&#39;:range(4,7)}</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;max_features&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">),</span> <span class="s">&#39;n_estimators&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span> <span class="s">&#39;max_depth&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;C&#39;</span><span class="p">:[</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span> <span class="o">.</span><span class="mo">05</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s">&#39;solver&#39;</span><span class="p">:[</span><span class="s">&#39;newton-cg&#39;</span><span class="p">,</span> <span class="s">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="s">&#39;liblinear&#39;</span><span class="p">]}</span>
 <span class="c"># TODO: Initialize the classifier</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">()</span>
 
 <span class="c"># TODO: Make an f1 scoring function using &#39;make_scorer&#39; </span>
 <span class="n">f1_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">score_func</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">pos_label</span> <span class="o">=</span> <span class="s">&#39;yes&#39;</span><span class="p">)</span>
@@ -1334,11 +1361,11 @@ Decision trees are algorithms that are a lot like the game "20 questions," in wh
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Made predictions in 0.0057 seconds.
-Tuned model has a training F1 score of 0.8864.
-Made predictions in 0.0046 seconds.
-Tuned model has a testing F1 score of 0.8158.
-Estimators:  {&apos;max_features&apos;: 11, &apos;n_estimators&apos;: 53, &apos;max_depth&apos;: 5}
+<pre>Made predictions in 0.0002 seconds.
+Tuned model has a training F1 score of 0.8426.
+Made predictions in 0.0002 seconds.
+Tuned model has a testing F1 score of 0.8133.
+Estimators:  {&apos;C&apos;: 0.05, &apos;solver&apos;: &apos;newton-cg&apos;}
 </pre>
 </div>
 </div>
@@ -1373,18 +1400,18 @@ Estimators:  {&apos;max_features&apos;: 11, &apos;n_estimators&apos;: 53, &apos;
 <tbody>
 <tr>
 <td style="text-align:center">Before tuning</td>
-<td style="text-align:center">0.9924</td>
-<td style="text-align:center">0.7313</td>
+<td style="text-align:center">0.8263</td>
+<td style="text-align:center">0.8169</td>
 </tr>
 <tr>
 <td style="text-align:center">After tuning</td>
-<td style="text-align:center">0.8864</td>
-<td style="text-align:center">0.8158</td>
+<td style="text-align:center">0.8326</td>
+<td style="text-align:center">0.8188</td>
 </tr>
 </tbody>
 </table>
 <p><br>
-The training F1 after tuning is much lower and closer to the test F1, indicating less overfitting. The F1 test score after tuning improved by over 8%.</p>
+The training F1 after tuning is slightly higher than before. The F1 test score after tuning improved slightly.</p>
 
 </div>
 </div>
