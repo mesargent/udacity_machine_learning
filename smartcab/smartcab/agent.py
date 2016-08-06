@@ -87,7 +87,7 @@ class LearningAgent(Agent):
         gamma = 1
 
         # The Q function, sets value for previous state using this state as the next state
-        self.q_table[prev_state][action] = alpha * (self.q_table[prev_state][action]) + (1 - alpha) * (reward + gamma * self.max_reward(self.state))
+        self.q_table[prev_state][action] = self.q_table[prev_state][action] +  alpha * (reward + gamma * self.max_reward(self.state) - self.q_table[prev_state][action])
 
         #for printout
         new_reward = self.q_table[prev_state][action]
@@ -132,7 +132,7 @@ class LearningAgent(Agent):
         inputs = self.env.sense(self)
         env_state = self.env.agent_states[self]
         loc = env_state['location']
-        state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'], self.next_waypoint)
+        state = (inputs['light'], inputs['oncoming'], inputs['left'], self.next_waypoint)
         if state not in self.q_table:
             self.q_table[state] = {'right': 0, 'left': 0, 'forward': 0, None: 0}
         return state
@@ -147,10 +147,10 @@ def run():
     e = Environment()  # create environment (also adds some dummy traffic)
     a = e.create_agent(LearningAgent)  # create agent
     e.set_primary_agent(a, enforce_deadline=True)  # specify agent to track
-    # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
+    # NOTE: You can set enforce_deadline=False while debugging to allow longer trial
 
     # Now simulate it
-    sim = Simulator(e, update_delay=0.0, display=False)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay=0.5, display=True)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
     sim.run(n_trials=100)  # run for a specified number of trials
