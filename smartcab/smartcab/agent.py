@@ -7,6 +7,7 @@ from simulator import Simulator
 import numpy as np
 
 #References: https://discussions.udacity.com/t/qtable-content-example/178397/11
+#https://discussions.udacity.com/t/i-dont-know-if-this-idea-is-a-kind-of-cheating/170894/12
 
         
 
@@ -17,93 +18,112 @@ class LearningAgent(Agent):
         super(LearningAgent, self).__init__(env)  # sets self.env = env, state = None, next_waypoint = None, and a default color
         self.color = 'red'  # override color
         self.planner = RoutePlanner(self.env, self)  # simple route planner to get next_waypoint
+
         # TODO: Initialize any additional variables here
         self.state = None
-        # Q Table to store state-action pairs and their rewards, a dictionary with states as keys and dictionaries
-        # of action-rewards as values
-        self.q_table = {}
 
+        # Q Table to store state-action pairs and their rewards, a dictionary with states as keys and dictionaries
+        self.q_table = {}
+        
+        #for testing purposes to see the percentage of successes
+        self.trials = 0 
+        self.successes = 0
+
+         #To determine average reward for evaluation purposes
+        self.total_reward_for_trial = 0
+        self.total_updates = 0
 
     def reset(self, destination=None):
         self.planner.route_to(destination)
         # TODO: Prepare for a new trip; reset any variables here, if required
 
     def update(self, t):
-        # Gather inputs
-        self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator
-        
+             
+        # To make sure self.state is not None, ensuring that this isn't the first time update has been run
+        # Q learning only occurs on second update call and later so that previous state is always available
+        # https://discussions.udacity.com/t/next-state-action-pair/44902/2?u=markesargent
+        if not self.state:
+            self.state = self.create_state()
+            return
+
+        # Gather inputs (for print out at end of method)
+        self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator     
         inputs = self.env.sense(self)
         env_state = self.env.agent_states[self]
         loc = env_state['location']
         deadline = self.env.get_deadline(self)
 
-        # TODO: Update state
-        print "inputs {}".format(inputs)
-        print "next waypoint {}".format(self.next_waypoint)
-
-
-        # create a new state only if self doesn't have one
-        if not self.state: 
-            self.state = self.create_state()    
+       
         
-        # add state to Q table with initial rewards if it isn't in it already
-        if self.state not in self.q_table:
-            self.q_table[self.state] = {'right': 0, 'left': 0, 'forward': 0, None: 0}
+        # This will the state before updating
+        prev_state = self.create_state()
 
-        # TODO: Select action according to your policy
+        ##################### TODO: Update state ######################################
+        self.state = self.create_state()
 
-        # Code for random actions
-        # self.actions = [None, 'forward', 'left', 'right']
+        ##################### TODO: Select action according to your policy ############
+        actions = [None, 'left', 'right', 'forward']
+        epsilon = .1 - (self.env.t *.001)
+        #epsilon = .2
+      
+        # choose action with max reward with prob epsilon. Start off more random, get more greedy
+        rand = random.Random()
+        rand_val = rand.random()
+
+        #do max action with 1 - epsilon probability
+        if rand_val > epsilon:
+            action = self.max_action(prev_state)
+        else:
+            action = actions[rand.randint(0,len(actions)-1)]
         
-        # rand = random.Random()
-        # action = self.actions[rand.randint(0,3)]
+        ##################### TODO: Learn policy based on state, action, reward ########
 
-        #choose action with max reward
-        action = self.max_action(self.state)
-        print "Action {}".format(action)
+        # gets reward for action, advances self.state to new state
+        reward = self.env.act(self, action) 
+
+        #set alphan and gamma
+        alpha = .5
+        #gamma = 1.0/(self.env.t + 1) #to avoid div by zero
+        gamma = 1
+
+        # The Q function, sets value for previous state using this state as the next state
+        self.q_table[prev_state][action] = alpha * (self.q_table[prev_state][action]) + (1 - alpha) * (reward + gamma * self.max_reward(self.state))
+
+        #for printout
+        new_reward = self.q_table[prev_state][action]
+        self.total_reward_for_trial += reward
+        self.total_updates +=1    
+
+        print "LearningAgent.update(): loc = {0:}, deadline = {1:}, inputs = {2:}, action = {3:}, reward = {4:.2f}".format(loc, deadline, inputs, action, reward)  # [debug]
+
+        #for reporting number of successes
+        # if self.env.done:
+        #     print "Average reward: {}".format(self.total_reward_for_trial/self.total_updates)
+        #     if env_state['location'] == env_state['destination']:
+        #         self.successes +=1
+        #     print "Successes: {}".format(self.successes)
         
 
-        # TODO: Learn policy based on state, action, reward
-        #set alpha
-        alpha = float(1/(self.env.t + 1))
-
-        #set gamma
-        gamma = .1
-
-        reward = self.env.act(self, action)   
-
-        #should reflect values for next state, since env.act was called
-        next_state = self.create_state() 
-
-        if next_state not in self.q_table:
-            self.q_table[next_state] = {'right': 0, 'left': 0, 'forward': 0, None: 0}
-
-        # The Q function
-        self.q_table[self.state][action] = alpha * (self.q_table[self.state][action] + reward) + (1 - alpha) * (self.q_table[self.state][action] + reward + gamma * self.max_reward(next_state))
-        new_reward = self.q_table[self.state][action]
-        #print "Q Table: {}".format(self.q_table)
-
-        print "LearningAgent.update(): loc = {}, deadline = {}, inputs = {}, action = {}, reward = {}".format(loc, deadline, inputs, action, new_reward)  # [debug]
 
 
-    # to get highest reward
+    # Helper function to get highest reward
     def max_reward(self, state):
         rewards = self.q_table[state]
         return max(rewards.values())
 
-    # get max key for actions, if there is more than one action with max value, choose one randomly
+    # Helper function to get max key for actions, if there is more than one action with max value, choose one randomly
     # http://stackoverflow.com/a/5466625/399741
     def max_action(self, state):
         rewards = self.q_table[state]
-        print "state {}".format(state)
-        print "rewards {}".format(rewards)
+        rand = random.Random()
+        # print "state {}".format(state)
+        # print "rewards {}".format(rewards)
         max_value = max(rewards.values())
         max_actions = []
         for action, reward in rewards.iteritems():
             if reward == max_value:
                 max_actions.append(action)
-        print "max actions {}".format(max_actions)
-        rand = random.Random()
+        #print "max actions {}".format(max_actions)
         return max_actions[rand.randint(0,len(max_actions)-1)]
 
     # Helper function for creating states from environment info
@@ -112,11 +132,13 @@ class LearningAgent(Agent):
         inputs = self.env.sense(self)
         env_state = self.env.agent_states[self]
         loc = env_state['location']
-        return (loc, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
-        
+        state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'], self.next_waypoint)
+        if state not in self.q_table:
+            self.q_table[state] = {'right': 0, 'left': 0, 'forward': 0, None: 0}
+        return state
         
     
-           
+
 
 def run():
     """Run the agent for a finite number of trials."""
@@ -124,11 +146,11 @@ def run():
     # Set up environment and agent
     e = Environment()  # create environment (also adds some dummy traffic)
     a = e.create_agent(LearningAgent)  # create agent
-    e.set_primary_agent(a, enforce_deadline=False)  # specify agent to track
+    e.set_primary_agent(a, enforce_deadline=True)  # specify agent to track
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=0.5, display=True)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay=0.0, display=False)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
     sim.run(n_trials=100)  # run for a specified number of trials
